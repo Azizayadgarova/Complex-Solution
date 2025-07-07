@@ -5,7 +5,7 @@ import Abaute from "./rautes/Abaute";
 import Blog from "./rautes/Blog";
 import Contact from "./rautes/Contact";
 import Home from "./rautes/Home";
-import Portfolio from "./rautes/Portfolio";
+import PortfolioAll from './Components/portfolioAll'
 import PortfolioMoments from "./Componets/PortfolioMoments";
 import Serevises from "./rautes/Serevises";
 import { createBrowserRouter } from "react-router-dom";
@@ -13,7 +13,6 @@ import PortfolioNature from "./Componets/PortfolioNature";
 import PortfolioTravel from "./Componets/PortfolioTravel";
 import PortfolioEducation from "./Componets/PortfolioEducation";
 import PortfolioSector from "./Componets/PortfolioSector";
-import Advantages from "./Componets/Advantages";
 import Advantage1 from "./Componets/Advantage1";
 import Advantage2 from "./Componets/Advantage2";
 import Advantage3 from "./Componets/Advantage3";
