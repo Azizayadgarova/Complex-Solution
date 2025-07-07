@@ -6,7 +6,7 @@ import person from '../assets/person.png';
 const stats = [
   { number: 250, label: 'Muvaffaqiyatli loyihalar' },
   { number: 20, label: 'Biznes uchun xizmatlar' },
-  { number: 150, label: 'Ijobiy fikrlar' },
+  { number: 150, label: 'Ijobiy fikrlarr' },
   { number: 15, label: 'Xorijdagi hamkorlar' }
 ];
 
