@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import image from '../assets/image.svg';
 import { useTranslation } from 'react-i18next';
-import AbouteUs from '../Componets/AbouteUs';
-import OurProcess from '../Componets/OurProcess';
-import OurService from '../Componets/OurService';
-import Footer from '../Componets/Footer';
-import Projects from '../Componets/Projects'; // Employees o'rniga Projects ishlatildi
+import AbouteUs from '../Components/AbouteUs';
+import OurProcess from '../Components/OurProcess';
+import OurService from '../Components/OurService';
+import Footer from '../Components/Footer';
+import Projects from '../Components/Projects'; // Employees o'rniga Projects ishlatildi
 import Contact from './Contact'; // Bu Contact komponenti rautes papkasida
-import GetInTuch from '../Componets/GetInTuch';
-import Statistics from '../Componets/Statistics';
-import Advantages from '../Componets/Advantages';
-import Skill from '../Componets/Skill';
+import GetInTuch from '../Components/GetInTuch';
+import Statistics from '../Components/Statistics';
+import Advantages from '../Components/Advantages';
+import Skill from '../Components/Skill';
 
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import GetInTuch from '../Componets/GetInTuch';
+import GetInTuch from '../Components/GetInTuch';
 
 const Contact = () => {
   const { t } = useTranslation();

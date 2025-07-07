@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import OurStore from '../Componets/OurStore';
-import Advantages from '../Componets/Advantages';
-import Projects from '../Componets/Projects';
+import OurStore from '../Components/OurStore';
+import Advantages from '../Components/Advantages';
+import Projects from '../Components/Projects';
 const Abaute = () => {
     const { t } = useTranslation();
 

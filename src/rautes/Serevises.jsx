@@ -1,5 +1,5 @@
 import React from 'react';
-import OurProcess from '../Componets/OurProcess';
+import OurProcess from '../Components/OurProcess';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import {
   FaTools,
@@ -8,7 +8,7 @@ import {
   FaChartLine,
   FaProjectDiagram,
 } from 'react-icons/fa';
-import Statistics from '../Componets/Statistics';
+import Statistics from '../Components/Statistics';
 
 const Serevises = () => {
   const navigate = useNavigate();

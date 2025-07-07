@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Projects from '../Componets/Projects';
+import Projects from '../Components/Projects';
 
 const Blog = () => {
   const { t } = useTranslation();

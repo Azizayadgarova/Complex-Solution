@@ -3,7 +3,7 @@ import { Outlet, Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { useState } from "react";
 import logo from '../assets/logo.png';
-import Footer from "../Componets/Footer";
+import Footer from "../Components/Footer";
 
 const HOVER_COLOR = '#FF3E54';
 
