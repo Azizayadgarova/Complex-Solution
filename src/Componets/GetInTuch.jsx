@@ -16,24 +16,29 @@ const GetInTuch = () => {
     email: '',
     phone: '',
     message: '',
+    privacyAccepted: false,
   });
 
   const [showThankYouModal, setShowThankYouModal] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   };
 
   const sendToTelegram = async () => {
     const token = '8040160776:AAHodRvx_Tpb7VJuQT8ES-IEjQkLY0NnSBA';
-    const chatId = ' "6304612170';
+    const chatId = '6304612170';
     const text = `
 📥 Yangi murojaat!
 👤 Ism: ${formData.name}
 📧 Email: ${formData.email}
 📞 Telefon: ${formData.phone}
 💬 Xabar: ${formData.message}
+✅ Maxfiylik siyosati qabul qilindi: ${formData.privacyAccepted ? 'Ha' : 'Yo‘q'}
     `;
 
     try {
@@ -51,9 +56,15 @@ const GetInTuch = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.privacyAccepted) {
+      alert('Iltimos, Maxfiylik siyosatini qabul qiling.');
+      return;
+    }
+
     const isSent = await sendToTelegram();
     if (isSent) {
-      setFormData({ name: '', email: '', phone: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', message: '', privacyAccepted: false });
       setShowThankYouModal(true);
     } else {
       alert('Xabar yuborilmadi. Iltimos, qayta urinib koʻring.');
@@ -92,6 +103,7 @@ const GetInTuch = () => {
                 />
               </div>
             ))}
+
             <div>
               <textarea
                 name="message"
@@ -103,6 +115,34 @@ const GetInTuch = () => {
                 required
               ></textarea>
             </div>
+
+            {/* Privacy policy checkbox */}
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="privacyAccepted"
+                name="privacyAccepted"
+                checked={formData.privacyAccepted}
+                onChange={handleChange}
+                required
+                className="w-4 h-4"
+              />
+              <label
+                htmlFor="privacyAccepted"
+                className="text-[#252525] text-sm sm:text-base"
+              >
+                Я согласен принять{' '}
+                <a
+                  href="/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#FF3E54] underline"
+                >
+                {t('privacy_policy_agree')}
+                </a>
+              </label>
+            </div>
+
             <button
               type="submit"
               className="bg-[#FF3E54] text-white text-sm sm:text-base px-6 py-3 rounded-md hover:bg-[#E0344A] transition duration-200 shadow-md hover:shadow-lg focus:ring-2 focus:ring-[#FF3E54]"
@@ -167,13 +207,13 @@ const GetInTuch = () => {
                 </svg>
               </div>
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#0E1F51] mb-4">Thank you!</h2>
-            <p className="text-sm sm:text-base text-gray-700 mb-6">We will get back to you as soon as possible!</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0E1F51] mb-4">  {t('thank_you_title')}</h2>
+            <p className="text-sm sm:text-base text-gray-700 mb-6">  {t('thank_you_message')}</p>
             <button
               onClick={handleModalClose}
               className="px-6 py-3 bg-[#FF3E54] text-white text-sm sm:text-base rounded-md hover:bg-[#E0344A] shadow-md transition focus:ring-2 focus:ring-[#FF3E54]"
             >
-              OK
+              {t('ok_button')}
             </button>
           </div>
         </div>
@@ -182,4 +222,4 @@ const GetInTuch = () => {
   );
 };
 
-export default GetInTuch; 
+export default GetInTuch;
