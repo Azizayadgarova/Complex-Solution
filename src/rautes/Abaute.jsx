@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import OurStore from '../Componets/OurStore';
 import Advantages from '../Componets/Advantages';
+import Projects from '../Componets/Projects';
 const Abaute = () => {
     const { t } = useTranslation();
 
@@ -14,6 +15,7 @@ const Abaute = () => {
             </div>
             <OurStore/>
             <Advantages/>
+            <Projects/>
         </div>
     );
 }

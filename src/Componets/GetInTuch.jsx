@@ -11,7 +11,6 @@ import img from '../assets/icon.svg';
 const GetInTuch = () => {
   const { t } = useTranslation();
 
-  // State boshqaruvi
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,7 +18,6 @@ const GetInTuch = () => {
     message: '',
   });
 
-  // State for modal visibility
   const [showThankYouModal, setShowThankYouModal] = useState(false);
 
   const handleChange = (e) => {
@@ -28,8 +26,8 @@ const GetInTuch = () => {
   };
 
   const sendToTelegram = async () => {
-    const token = '8037632171:AAHtWPI_A5aL2mHCf6zL9stFSbvhmT6Y7Dk';
-    const chatId = '6304612170'; // o'zingizniki bilan almashtiring
+    const token = '8040160776:AAHodRvx_Tpb7VJuQT8ES-IEjQkLY0NnSBA';
+    const chatId = ' "6304612170';
     const text = `
 📥 Yangi murojaat!
 👤 Ism: ${formData.name}
@@ -41,25 +39,13 @@ const GetInTuch = () => {
     try {
       const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text,
-          parse_mode: 'Markdown',
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: chatId, text }),
       });
-
-      if (res.ok) {
-        return true; // Successfully sent
-      } else {
-        console.error('Telegram API error:', await res.text());
-        return false; // Failed to send
-      }
+      return res.ok;
     } catch (err) {
-      console.error('Network or other error:', err);
-      return false; // Error occurred
+      console.error('Telegram error:', err);
+      return false;
     }
   };
 
@@ -67,10 +53,10 @@ const GetInTuch = () => {
     e.preventDefault();
     const isSent = await sendToTelegram();
     if (isSent) {
-      setFormData({ name: '', email: '', phone: '', message: '' }); // Clear form
-      setShowThankYouModal(true); // Show the modal
+      setFormData({ name: '', email: '', phone: '', message: '' });
+      setShowThankYouModal(true);
     } else {
-      alert('Xabar yuborilmadi. Iltimos, qayta urinib koʻring.'); // More informative error
+      alert('Xabar yuborilmadi. Iltimos, qayta urinib koʻring.');
     }
   };
 
@@ -79,128 +65,87 @@ const GetInTuch = () => {
   };
 
   return (
-    <div className='bg-red-50 py-[100px] px-[4%]'>
+    <div className="bg-red-50 mt-10 py-16 px-4 sm:px-6 md:px-10 lg:px-20">
       <div className="max-w-7xl mx-auto text-center mb-12">
-        <p className='text-[#FF3E54] text-lg font-bold tracking-widest mb-3 uppercase'>
+        <p className="text-[#FF3E54] text-sm sm:text-base md:text-lg font-semibold uppercase tracking-widest mb-2">
           \ {t('get_in_touch')} \
         </p>
-        <h2 className="text-[#0E1F51] text-[40px] sm:text-5xl font-bold leading-tight">
+        <h2 className="text-[#0E1F51] text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
           {t('lets_talk')}
         </h2>
       </div>
 
-      <div className="flex md:flex-row gap-12 rounded-lg p-8">
-        <div className="md:w-2/3 p-4 bg-white">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+      <div className="flex flex-col md:flex-row gap-10 max-w-7xl mx-auto">
+        {/* Form Section */}
+        <div className="md:w-2/3 bg-white p-6 sm:p-8 rounded-lg shadow-md">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {['name', 'email', 'phone'].map((field) => (
+              <div key={field}>
+                <input
+                  type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'}
+                  name={field}
+                  placeholder={t(field)}
+                  value={formData[field]}
+                  onChange={handleChange}
+                  className="w-full text-sm sm:text-base bg-[#F7F7F7] px-4 py-3 rounded-md text-[#252525] placeholder-[#252525] border-none focus:outline-none focus:ring-2 focus:ring-[#FF3E54]"
+                  required
+                />
+              </div>
+            ))}
             <div>
-              <label htmlFor="name" className="sr-only">{t('name')}</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder={t('name')}
-                className="w-full bg-[#F7F7F7] px-4 py-3 border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#FF3E54] text-[#252525] placeholder-[#252525]"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="sr-only">{t('email')}</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder={t('email')}
-                className="w-full bg-[#F7F7F7] px-4 py-3 border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#FF3E54] text-[#252525] placeholder-[#252525]"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="phone" className="sr-only">{t('phone')}</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                placeholder={t('phone')}
-                className="w-full bg-[#F7F7F7] px-4 py-3 border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#FF3E54] text-[#252525] placeholder-[#252525]"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="message" className="sr-only">{t('message')}</label>
               <textarea
-                id="message"
                 name="message"
                 rows="5"
                 placeholder={t('message')}
-                className="w-full bg-[#F7F7F7] px-4 py-3 border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#FF3E54] text-[#252525] placeholder-[#252525]"
                 value={formData.message}
                 onChange={handleChange}
+                className="w-full text-sm sm:text-base bg-[#F7F7F7] px-4 py-3 rounded-md text-[#252525] placeholder-[#252525] border-none focus:outline-none focus:ring-2 focus:ring-[#FF3E54]"
                 required
               ></textarea>
             </div>
             <button
               type="submit"
-              className="w-auto px-8 py-3 bg-[#FF3E54] text-white font-medium rounded-md hover:bg-[#E0344A] transition duration-200 ease-in-out shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#FF3E54] focus:ring-opacity-50"
+              className="bg-[#FF3E54] text-white text-sm sm:text-base px-6 py-3 rounded-md hover:bg-[#E0344A] transition duration-200 shadow-md hover:shadow-lg focus:ring-2 focus:ring-[#FF3E54]"
             >
               {t('send_now')}
             </button>
           </form>
         </div>
 
-        <div className="md:w-1/3 p-4 bg-white rounded-lg flex flex-col justify-between">
-          <div className="space-y-6 mt-[35px] flex flex-col justify-center ml-[30px]">
-            <div className="flex items-start gap-4">
-              <div className="p-3 bg-[#F7F7F7] rounded-[10px] shadow-sm">
-                <img src={img1} alt="" />
+        {/* Contact Info & Socials */}
+        <div className="md:w-1/3 bg-white p-6 sm:p-8 rounded-lg shadow-md flex flex-col justify-between">
+          <div className="space-y-6">
+            {[
+              { img: img1, title: t('call_anytime'), desc: '+998 (91) 166-90-99' },
+              { img: img2, title: t('send_email'), desc: 'uzcomplex-solutions@mail.ru' },
+              { img, title: t('visit_us'), desc: 'Ташкентский район, ул. ТКАД, д. 30', isLong: true },
+            ].map(({ img, title, desc }, i) => (
+              <div key={i} className="flex items-start gap-4">
+                <div className="p-3 bg-[#F7F7F7] rounded-[10px] shadow-sm">
+                  <img src={img} alt="" className="w-6 h-6 sm:w-8 sm:h-8" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-[#FF3E54] text-base sm:text-lg">{title}</h3>
+                  <p className="text-[#0E1F51] text-sm sm:text-base">{desc}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-semibold text-[#FF3E54] text-[20px]">{t('call_anytime')}</h3>
-                <p className="text-[#0E1F51]">+998 (91) 166-90-99</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="p-3 bg-[#F7F7F7] rounded-[10px] shadow-sm">
-                <img src={img2} alt="" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-[#FF3E54] text-[20px]">{t('send_email')}</h3>
-                <p className="text-[#0E1F51]">uzcomplex-solutions@mail.ru</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-4">
-              <div className="p-3 bg-[#F7F7F7] rounded-[10px] shadow-sm">
-                <img src={img} alt="" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-[#FF3E54] text-[20px]">{t('visit_us')}</h3>
-                <p className="text-[#0E1F51] w-[250px]">Ташкентский район, ул. ТКАД, д. 30</p>
-              </div>
-            </div>
+            ))}
           </div>
 
-          <div className="mt-8 text-center">
-            <h3 className="font-semibold text-[24px] text-[#0E1F51] mb-4">{t('follow_us')}</h3>
-            <div className="flex justify-center gap-6">
-              <a href="#" className="p-3 bg-[#FF3E54] rounded-lg text-white hover:bg-[#E0344A] transition-colors duration-200">
-                <img src={img4} alt="" />
-              </a>
-              <a href="#" className="p-3 bg-[#FF3E54] rounded-lg text-white hover:bg-[#E0344A] transition-colors duration-200">
-                <img src={img3} alt="" />
-              </a>
-              <a href="#" className="w-[45px] flex items-center justify-center bg-[#FF3E54] rounded-lg text-white hover:bg-[#E0344A] transition-colors duration-200">
-                <img src={img5} alt="" />
-              </a>
-              <a href="#" className="p-3 bg-[#FF3E54] rounded-lg text-white hover:bg-[#E0344A] transition-colors duration-200">
-                <img src={img6} alt="" />
-              </a>
+          <div className="mt-10 text-center">
+            <h3 className="font-semibold text-xl sm:text-2xl text-[#0E1F51] mb-4">
+              {t('follow_us')}
+            </h3>
+            <div className="flex justify-center gap-5 flex-wrap">
+              {[img4, img3, img5, img6].map((icon, i) => (
+                <a
+                  key={i}
+                  href="#"
+                  className="p-3 bg-[#FF3E54] rounded-lg hover:bg-[#E0344A] transition inline-flex items-center justify-center"
+                >
+                  <img src={icon} alt="icon" className="w-5 h-5 sm:w-6 sm:h-6" />
+                </a>
+              ))}
             </div>
           </div>
         </div>
@@ -208,28 +153,33 @@ const GetInTuch = () => {
 
       {/* Thank You Modal */}
       {showThankYouModal && (
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-   <div className="bg-white rounded-lg p-8 shadow-lg text-center max-w-sm mx-auto">
-    <div className="mb-6 flex justify-center">
-     <div className="w-24 h-24 rounded-full bg-[#FFE6EB] flex items-center justify-center">
-      <svg className="w-16 h-16 text-[#FF3E54]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>
-      </svg>
-     </div>
-    </div>
-    <h2 className="text-3xl font-bold text-[#0E1F51] mb-4">Thank you!</h2>
-    <p className="text-gray-700 mb-6">We will get back to you as soon as possible!</p>
-    <button
-     onClick={handleModalClose}
-     className="px-8 py-3 bg-[#FF3E54] text-white font-medium rounded-md hover:bg-[#E0344A] transition duration-200 ease-in-out shadow-md focus:outline-none focus:ring-2 focus:ring-[#FF3E54] focus:ring-opacity-50"
-    >
-     OK
-    </button>
-   </div>
-  </div>
- )}
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-lg p-8 shadow-lg text-center max-w-sm w-full">
+            <div className="mb-6">
+              <div className="w-20 h-20 mx-auto rounded-full bg-[#FFE6EB] flex items-center justify-center">
+                <svg
+                  className="w-12 h-12 text-[#FF3E54]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-[#0E1F51] mb-4">Thank you!</h2>
+            <p className="text-sm sm:text-base text-gray-700 mb-6">We will get back to you as soon as possible!</p>
+            <button
+              onClick={handleModalClose}
+              className="px-6 py-3 bg-[#FF3E54] text-white text-sm sm:text-base rounded-md hover:bg-[#E0344A] shadow-md transition focus:ring-2 focus:ring-[#FF3E54]"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default GetInTuch;
+export default GetInTuch; 

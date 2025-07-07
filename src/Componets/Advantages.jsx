@@ -77,7 +77,7 @@ const SortableItem = ({ id, title, content, isOpen, toggleOpen, icon: Icon }) =>
           <div className="bg-[#ffe5e8] p-2 rounded-full">
             <Icon className='text-[#FF3E54] text-xl' />
           </div>
-          <h3 className='text-lg font-semibold text-[#0E1F51] select-none'>{title}</h3>
+          <h3 className='text-[22px] font-semibold text-[#0E1F51] select-none'>{title}</h3>
         </div>
 
         <button
@@ -96,7 +96,7 @@ const SortableItem = ({ id, title, content, isOpen, toggleOpen, icon: Icon }) =>
           }`}
       >
         <div className='border-t border-gray-200 pt-4'>
-          <p className='text-gray-700 leading-relaxed text-[15px]'>{content}</p>
+          <p className='text-gray-700 leading-relaxed text-[18px]'>{content}</p>
         </div>
       </div>
     </div>
@@ -140,7 +140,7 @@ const Advantages = () => {
         </h3>
       </div>
 
-      <div className='max-w-3xl mx-auto px-4'>
+      <div className='max-w-7xl mx-auto px-[4%]'>
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}

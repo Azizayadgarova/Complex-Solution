@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import image from '../assets/image.svg'
+import image from '../assets/image.svg';
 import { useTranslation } from 'react-i18next';
 import AbouteUs from '../Componets/AbouteUs';
 import OurProcess from '../Componets/OurProcess';
 import OurService from '../Componets/OurService';
 import Footer from '../Componets/Footer';
-import Employees from '../Componets/Projects';
-import Contact from './Contact';
+import Projects from '../Componets/Projects'; // Employees o'rniga Projects ishlatildi
+import Contact from './Contact'; // Bu Contact komponenti rautes papkasida
 import GetInTuch from '../Componets/GetInTuch';
 import Statistics from '../Componets/Statistics';
 import Advantages from '../Componets/Advantages';
-import Projects from '../Componets/Projects';
-
+import Skill from '../Componets/Skill';
 
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { t, i18n } = useTranslation();
+
+  // Sichqoncha harakatini kuzatish
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -24,6 +25,7 @@ const Home = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  // Sharchalarning sichqonchadan qochishini hisoblash
   const calculateAvoidance = (elementX, elementY, mouseX, mouseY, strength = 200) => {
     const distance = Math.sqrt(Math.pow(mouseX - elementX, 2) + Math.pow(mouseY - elementY, 2));
     const avoidanceRange = 180;
@@ -39,17 +41,24 @@ const Home = () => {
     return { x: 0, y: 0 };
   };
 
-  const circle1Avoidance = calculateAvoidance(100, window.innerHeight - 100, mousePosition.x, mousePosition.y);
-  const circle2Avoidance = calculateAvoidance(window.innerWidth - 150, 100, mousePosition.x, mousePosition.y);
-  const circle3Avoidance = calculateAvoidance(window.innerWidth / 2, window.innerHeight / 2, mousePosition.x, mousePosition.y);
-  const circle4Avoidance = calculateAvoidance(150, 150, mousePosition.x, mousePosition.y);
-  const circle5Avoidance = calculateAvoidance(window.innerWidth - 50, window.innerHeight - 150, mousePosition.x, mousePosition.y);
+  // Sharchalarning joylashuvini dinamik hisoblash
+  // Bu yerda window.innerWidth va window.innerHeight ishlashi uchun,
+  // komponent mount bo'lganda yoki window resize bo'lganda qayta hisoblanishi kerak.
+  // Hozircha oddiylik uchun statik joylashuvlar beriladi, lekin responsivlik uchun
+  // useEffect ichida window o'lchamlarini kuzatish kerak bo'ladi.
+  // Lekin Tailwind CSS klasslari bilan ishlayotganimiz uchun, asosan, ularga tayanamiz.
+  // Agar bu sharchalar juda aniq joylashishi kerak bo'lsa, ularning pozitsiyalarini
+  // dinamik ravishda o'zgartirish uchun useRef va getBoundingClientRect dan foydalanish kerak.
+
+  // Hozircha, faqat CSS orqali responsivlikni ta'minlaymiz.
+  // Sharchalarning aniq pozitsiyalarini `style` propida saqlab qolamiz,
+  // va ularni o'lchamlarini responsiv qilamiz.
 
   return (
     <div>
-      <div className='relative bg-white min-h-screen h-[600px] overflow-hidden cursor-none'>
+      <div className='relative bg-white min-h-screen md:h-[600px] overflow-hidden cursor-none'> {/* h-[600px] faqat md va undan kattalar uchun */}
 
-        {/* 🔴 Custom sichqoncha kursori (YANGILANGAN QISM) */}
+        {/* 🔴 Custom sichqoncha kursori */}
         <div
           className="fixed w-6 h-6 bg-red-500 rounded-full pointer-events-none z-50 opacity-70"
           style={{
@@ -58,88 +67,90 @@ const Home = () => {
           }}
         />
 
-
+        {/* Dumaloq fon elementlari - Sichqonchadan qochadi */}
+        {/* Har bir sharchaning o'lchami va joylashuvi responsiv qilindi */}
         <div
-          className="absolute w-48 h-48 bg-gray-200 rounded-full opacity-60 transition-all duration-500 ease-out"
+          className="absolute w-32 h-32 sm:w-48 sm:h-48 bg-gray-200 rounded-full opacity-60 transition-all duration-500 ease-out"
           style={{
-            bottom: -50 + circle1Avoidance.y,
-            left: -50 + circle1Avoidance.x,
+            bottom: -50 + calculateAvoidance(window.innerWidth * 0.1, window.innerHeight * 0.9, mousePosition.x, mousePosition.y).y,
+            left: -50 + calculateAvoidance(window.innerWidth * 0.1, window.innerHeight * 0.9, mousePosition.x, mousePosition.y).x,
             transform: 'scale(1)',
             animation: 'pulse 6s ease-in-out infinite'
           }}
         />
         <div
-          className="absolute w-32 h-32 bg-gray-200 rounded-full opacity-40 transition-all duration-500 ease-out"
+          className="absolute w-24 h-24 sm:w-32 sm:h-32 bg-gray-200 rounded-full opacity-40 transition-all duration-500 ease-out"
           style={{
-            top: 40 + circle2Avoidance.y,
-            right: 80 + circle2Avoidance.x,
+            top: 40 + calculateAvoidance(window.innerWidth * 0.9, window.innerHeight * 0.1, mousePosition.x, mousePosition.y).y,
+            right: 80 + calculateAvoidance(window.innerWidth * 0.9, window.innerHeight * 0.1, mousePosition.x, mousePosition.y).x,
             animation: 'pulse 4s ease-in-out infinite'
           }}
         />
         <div
-          className="absolute w-40 h-40 bg-red-100 rounded-full opacity-70 border-4 border-red-200 transition-all duration-500 ease-out"
+          className="absolute w-32 h-32 sm:w-40 sm:h-40 bg-red-100 rounded-full opacity-70 border-4 border-red-200 transition-all duration-500 ease-out"
           style={{
             top: '50%',
             left: '50%',
-            transform: `translate(-50%, -50%) translate(${circle3Avoidance.x}px, ${circle3Avoidance.y}px)`,
+            transform: `translate(-50%, -50%) translate(${calculateAvoidance(window.innerWidth / 2, window.innerHeight / 2, mousePosition.x, mousePosition.y).x}px, ${calculateAvoidance(window.innerWidth / 2, window.innerHeight / 2, mousePosition.x, mousePosition.y).y}px)`,
             animation: 'pulse 3s ease-in-out infinite'
           }}
         />
         <div
-          className="absolute w-24 h-24 bg-red-100 rounded-full opacity-60 transition-all duration-500 ease-out"
+          className="absolute w-16 h-16 sm:w-24 sm:h-24 bg-red-100 rounded-full opacity-60 transition-all duration-500 ease-out"
           style={{
-            top: 80 + circle4Avoidance.y,
-            left: 80 + circle4Avoidance.x,
+            top: 80 + calculateAvoidance(window.innerWidth * 0.15, window.innerHeight * 0.15, mousePosition.x, mousePosition.y).y,
+            left: 80 + calculateAvoidance(window.innerWidth * 0.15, window.innerHeight * 0.15, mousePosition.x, mousePosition.y).x,
             animation: 'pulse 6s ease-in-out infinite'
           }}
         />
         <div
-          className="absolute w-24 h-24 bg-gray-200 rounded-full opacity-50 transition-all duration-500 ease-out"
+          className="absolute w-16 h-16 sm:w-24 sm:h-24 bg-gray-200 rounded-full opacity-50 transition-all duration-500 ease-out"
           style={{
-            bottom: 80 + circle5Avoidance.y,
-            right: -30 + circle5Avoidance.x,
+            bottom: 80 + calculateAvoidance(window.innerWidth * 0.85, window.innerHeight * 0.85, mousePosition.x, mousePosition.y).y,
+            right: -30 + calculateAvoidance(window.innerWidth * 0.85, window.innerHeight * 0.85, mousePosition.x, mousePosition.y).x,
             animation: 'pulse 4s ease-in-out infinite'
           }}
         />
 
-        <div className="relative z-10 flex justify-between px-16 py-12 items-center">
-          <div>
-            <p className='text-2xl text-red-500 font-medium'>\ {t('intro')} \</p>
-            <h2 className='text-blue-900 text-[60px] w-4/5 font-medium leading-tight'>   {t('heading')}</h2>
-            <button className='w-40 h-15 mt-5 px-6 py-3 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors duration-300'>
+        {/* Asosiy kontent */}
+        <div className="relative z-10 flex flex-col md:flex-row justify-between px-4 sm:px-8 lg:px-16 py-12 items-center text-center md:text-left">
+          <div className="md:w-1/2 mb-8 md:mb-0"> {/* Mobil va desktopda kenglik va margin */}
+            <p className='text-xl sm:text-2xl text-red-500 font-medium mb-2'>\ {t('intro')} \</p> {/* Matn o'lchamlari responsiv */}
+            <h2 className='text-4xl sm:text-5xl lg:text-[60px] text-blue-900 font-medium leading-tight mb-6'>
+              {t('heading')}
+            </h2>
+            <button className='w-36 h-12 sm:w-40 sm:h-15 mt-4 px-6 py-3 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors duration-300'>
               {t('view_more')}
             </button>
           </div>
-          <div>
-            <img src={image} alt="Business growth" />
+          <div className="md:w-1/2 flex justify-center"> {/* Rasmni markazga joylash */}
+            <img src={image} alt="Business growth" className="max-w-full h-auto" /> {/* Rasmni responsiv qilish */}
           </div>
         </div>
 
         <style>{`
-        @keyframes pulse {
-          0%, 100% {
-            transform: scale(1);
-            opacity: 0.6;
+          @keyframes pulse {
+            0%, 100% {
+              transform: scale(1);
+              opacity: 0.6;
+            }
+            50% {
+              transform: scale(1.05);
+              opacity: 0.8;
+            }
           }
-          50% {
-            transform: scale(1.05);
-            opacity: 0.8;
-          }
-        }
-      `}</style>
+        `}</style>
       </div>
       <AbouteUs />
       <OurProcess />
-       <OurService />
-        <Statistics/>
-   
-       <Advantages/>
-        <Projects/>
-          <GetInTuch/>
+      <OurService />
+      <Statistics/>
+      <Skill/>
+      <Advantages/>
+      <Projects/>
+      <GetInTuch/>
     </div>
-
   );
-
 };
 
 export default Home;

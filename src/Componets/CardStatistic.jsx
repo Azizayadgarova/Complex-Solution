@@ -15,7 +15,7 @@ const CardStatisric = ({ value, label }) => {
   return (
     <div
       ref={ref}
-      className="bg-white rounded-2xl shadow-sm border p-6 w-full text-center hover:shadow-md transition"
+      className="bg-white rounded-2xl shadow-sm border p-4 sm:p-6 w-full text-center hover:shadow-md transition"
     >
       <motion.div
         initial={{ count: 0 }}
@@ -23,12 +23,12 @@ const CardStatisric = ({ value, label }) => {
         transition={{ duration: 2 }}
       >
         {({ count }) => (
-          <h2 className="text-4xl font-extrabold text-[#0E1F51]">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0E1F51]">
             {Math.round(count)}+
           </h2>
         )}
       </motion.div>
-      <p className="text-[#0E1F51] mt-2 text-lg font-medium">{label}</p>
+      <p className="text-[#0E1F51] mt-2 text-base sm:text-lg font-medium">{label}</p>
     </div>
   );
 };
