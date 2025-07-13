@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import servises from '../assets/servis.svg';
+import servises from '../assets/aboute.jpg';
 import { NavLink } from 'react-router-dom';
 
 const OurService = () => {
@@ -26,20 +26,24 @@ const OurService = () => {
 
     return (
         // Asosiy konteyner: Mobil va desktopda flex yo'nalishini o'zgartirish
-        <div className='px-[4%] sm:px-6 lg:px-[4%] flex flex-col md:flex-row items-center justify-between my-12 sm:my-16 md:my-[100px]'>
+        <div className='px-[4%]  sm:px-6 lg:px-[4%] flex flex-col md:flex-row items-center justify-between my-10 sm:my-16 md:my-[100px]'>
             {/* Rasm qismi */}
-            <div className='w-full md:w-1/2 flex justify-center md:justify-start mb-8 md:mb-0'> {/* Mobil va desktopda joylashuv va margin */}
-                <img src={servises} alt="Our services illustration" className='w-full max-w-[400px] md:max-w-[500px] h-auto object-contain' /> {/* Rasm o'lchamlari responsiv */}
+            <div className='w-[50%] h-[600px] md:w-1/2 flex justify-center md:justify-start mb-8 md:mb-0'>
+                <img
+                    src={servises}
+                    alt="Our services illustration"
+                    className='w-full rounded-md pr-[30px] max-w-[350px] sm:max-w-[400px] md:max-w-[500px] h-auto object-contain'
+                />
             </div>
-            
-            {/* Matn kontenti qismi */}
-            <div className='w-full md:w-1/2 md:pl-8 text-center md:text-left'> {/* Mobil va desktopda padding va matn tekislash */}
-                <h2 className='text-[#FF3E54] text-2xl sm:text-3xl md:text-[30px] font-medium mb-4'>/ {t('services')} /</h2> {/* Matn o'lchamlari responsiv */}
-                <ul className='space-y-3 text-[#0E1F51] text-base sm:text-lg'> {/* Matn o'lchamlari responsiv */}
+
+            {/* Matn kontenti */}
+            <div className='w-full md:w-1/2 md:pl-8 text-center md:text-left'>
+                <h2 className='text-[#FF3E54] text-2xl sm:text-3xl md:text-[30px] font-medium mb-4'>/ {t('services')} /</h2>
+                <ul className='space-y-3 text-[#0E1F51] gap-y-[10px] text-base sm:text-lg'>
                     {serviceKeys.map(({ key, path }) => (
                         <li
                             key={key}
-                            className='flex justify-between items-start bg-[#F7F7F7] p-3 rounded-lg hover:shadow-md transition-all duration-200'
+                            className='flex justify-between items-start bg-[#F7F7F7] px-6 py-3 rounded-lg hover:shadow-md transition-all duration-200'
                         >
                             <span className="max-w-[85%]">{renderBoldBeforeColon(t(key))}</span>
                             <NavLink
@@ -51,6 +55,7 @@ const OurService = () => {
                 </ul>
             </div>
         </div>
+
     );
 };
 

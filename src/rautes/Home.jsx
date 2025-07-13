@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import image from '../assets/image.svg';
+import image from '../assets/img.png';
 import { useTranslation } from 'react-i18next';
 import AbouteUs from '../Components/AbouteUs';
 import OurProcess from '../Components/OurProcess';
 import OurService from '../Components/OurService';
-import Footer from '../Components/Footer';
-import Projects from '../Components/Projects'; // Employees o'rniga Projects ishlatildi
-import Contact from './Contact'; // Bu Contact komponenti rautes papkasida
+import Projects from '../Components/Projects'; 
 import GetInTuch from '../Components/GetInTuch';
 import Statistics from '../Components/Statistics';
 import Advantages from '../Components/Advantages';
 import Skill from '../Components/Skill';
+import Results from '../Components/Results';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
+  const handleClick = () => {
+    navigate('/aboute');
+  };
   // Sichqoncha harakatini kuzatish
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -40,19 +44,6 @@ const Home = () => {
     }
     return { x: 0, y: 0 };
   };
-
-  // Sharchalarning joylashuvini dinamik hisoblash
-  // Bu yerda window.innerWidth va window.innerHeight ishlashi uchun,
-  // komponent mount bo'lganda yoki window resize bo'lganda qayta hisoblanishi kerak.
-  // Hozircha oddiylik uchun statik joylashuvlar beriladi, lekin responsivlik uchun
-  // useEffect ichida window o'lchamlarini kuzatish kerak bo'ladi.
-  // Lekin Tailwind CSS klasslari bilan ishlayotganimiz uchun, asosan, ularga tayanamiz.
-  // Agar bu sharchalar juda aniq joylashishi kerak bo'lsa, ularning pozitsiyalarini
-  // dinamik ravishda o'zgartirish uchun useRef va getBoundingClientRect dan foydalanish kerak.
-
-  // Hozircha, faqat CSS orqali responsivlikni ta'minlaymiz.
-  // Sharchalarning aniq pozitsiyalarini `style` propida saqlab qolamiz,
-  // va ularni o'lchamlarini responsiv qilamiz.
 
   return (
     <div>
@@ -119,7 +110,7 @@ const Home = () => {
             <h2 className='text-4xl sm:text-5xl lg:text-[60px] text-blue-900 font-medium leading-tight mb-6'>
               {t('heading')}
             </h2>
-            <button className='w-36 h-12 sm:w-40 sm:h-15 mt-4 px-6 py-3 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors duration-300'>
+            <button onClick={handleClick} className='w-36 h-12 sm:w-40 sm:h-17 mt-4 px-6 py-3 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors duration-300'>
               {t('view_more')}
             </button>
           </div>
@@ -144,11 +135,12 @@ const Home = () => {
       <AbouteUs />
       <OurProcess />
       <OurService />
-      <Statistics/>
-      <Skill/>
-      <Advantages/>
-      <Projects/>
-      <GetInTuch/>
+      <Statistics />
+      <Skill />
+      <Advantages />
+      <Projects />
+      <Results />
+      <GetInTuch />
     </div>
   );
 };

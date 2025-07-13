@@ -1,13 +1,21 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // ✅ navigate uchun
 import { FaLinkedin, FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
 import { SiReact, SiWordpress, SiWix } from 'react-icons/si';
-import footerVideo from '../assets/video.mp4';
+import footerVideo from '../assets/video1.mp4';
 
 const Footer = () => {
+  const navigate = useNavigate(); // ✅ navigate instance
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate('/signin'); // ✅ Admin sahifasiga yo'naltirish
+  };
+
+
   return (
     <footer className="relative text-white py-[100px] px-[4%] overflow-hidden">
-      
-      {/* 📽️ Video Background */}
+
       <video
         className="absolute top-0 left-0 w-full h-full object-cover z-0"
         src={footerVideo}
@@ -17,12 +25,10 @@ const Footer = () => {
         playsInline
       />
 
-      {/* 🟦 Overlay (darken effect) */}
       <div className="absolute top-0 left-0 w-full h-full bg-[#0E1F51] opacity-80 z-10" />
 
-      {/* 🌐 Content */}
       <div className="relative z-20 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-        
+
         {/* About Us */}
         <div>
           <h2 className="text-[24px] font-bold mb-2">About Us</h2>
@@ -31,18 +37,10 @@ const Footer = () => {
             It is a long established fact that a reader will be distracted by the readable content of a page when looking at...
           </p>
           <div className="flex gap-3">
-            <a href="#" className="bg-white text-[#0E1F51] p-2 rounded-full hover:bg-[#FF3E54] hover:text-white">
-              <FaLinkedin />
-            </a>
-            <a href="#" className="bg-white text-[#0E1F51] p-2 rounded-full hover:bg-[#FF3E54] hover:text-white">
-              <FaInstagram />
-            </a>
-            <a href="#" className="bg-white text-[#0E1F51] p-2 rounded-full hover:bg-[#FF3E54] hover:text-white">
-              <FaFacebook />
-            </a>
-            <a href="#" className="bg-white text-[#0E1F51] p-2 rounded-full hover:bg-[#FF3E54] hover:text-white">
-              <FaTwitter />
-            </a>
+            <a href="#" className="bg-white text-[#0E1F51] p-2 rounded-full hover:bg-[#FF3E54] hover:text-white"><FaLinkedin /></a>
+            <a href="#" className="bg-white text-[#0E1F51] p-2 rounded-full hover:bg-[#FF3E54] hover:text-white"><FaInstagram /></a>
+            <a href="#" className="bg-white text-[#0E1F51] p-2 rounded-full hover:bg-[#FF3E54] hover:text-white"><FaFacebook /></a>
+            <a href="#" className="bg-white text-[#0E1F51] p-2 rounded-full hover:bg-[#FF3E54] hover:text-white"><FaTwitter /></a>
           </div>
         </div>
 
@@ -96,19 +94,15 @@ const Footer = () => {
           <p className="text-sm mb-4">
             It is a long established fact that a reader will be distracted by the readable...
           </p>
-          <form className="flex flex-col gap-3">
-            <input
-              type="email"
-              placeholder="Email"
-              className="p-2 rounded-md text-black focus:outline-none"
-            />
+          <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
             <button
               type="submit"
               className="bg-[#FF3E54] hover:bg-red-600 text-white py-2 rounded-md"
             >
-              Submit
+              Admin
             </button>
           </form>
+
         </div>
       </div>
     </footer>

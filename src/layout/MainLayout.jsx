@@ -1,9 +1,9 @@
-
 import { Outlet, Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { useState } from "react";
 import logo from '../assets/logo.png';
 import Footer from "../Components/Footer";
+import ScrollToTop from '../ScrollToTop'; // ⬅️ ScrollToTop import qilindi
 
 const HOVER_COLOR = '#FF3E54';
 
@@ -21,7 +21,7 @@ export default function MainLayout() {
                 <div className="flex items-center justify-between py-[18px] px-[4%]">
                     <div>
                         <Link to="/" onClick={closeMenu}>
-                            <img className="h-20 outline-none" src={logo} alt="Texnomart" />
+                            <img className="h-20 outline-none" src={logo} alt="logo" />
                         </Link>
                     </div>
 
@@ -65,16 +65,15 @@ export default function MainLayout() {
                     {/* Hamburger - mobile */}
                     <button
                         onClick={toggleMenu}
-                        className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-1"
+                        className="md:hidden flex flex-col justify-center items-center w-5 h-5 gap-1"
                         aria-label="Toggle menu"
                     >
-                        <span className={`block w-8 h-0.5 bg-[#0E1F51] transition-transform duration-300 origin-left ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-                        <span className={`block w-8 h-0.5 bg-[#0E1F51] transition-opacity duration-300 ${menuOpen ? "opacity-0" : "opacity-100"}`} />
-                        <span className={`block w-8 h-0.5 bg-[#0E1F51] transition-transform duration-300 origin-left ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+                        <span className={`block w-5 h-0.5 bg-[#0E1F51] transition-transform duration-300 origin-left ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+                        <span className={`block w-5 h-0.5 bg-[#0E1F51] transition-opacity duration-300 ${menuOpen ? "opacity-0" : "opacity-100"}`} />
+                        <span className={`block w-5 h-0.5 bg-[#0E1F51] transition-transform duration-300 origin-left ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
                     </button>
                 </div>
 
-                {/* Mobil menyu */}
                 {menuOpen && (
                     <div className="md:hidden bg-[#F7F7F7] px-6 pb-6 border-t border-gray-200 shadow-lg animate-fadeIn">
                         <ul className="flex flex-col gap-3 text-[#0E1F51] font-medium text-sm w-full">
@@ -119,20 +118,14 @@ export default function MainLayout() {
 
             {/* Kontent maydoni */}
             <div className="pt-[100px]">
-                <Outlet />
+                <ScrollToTop /> {/* Sahifa o‘zgarganda avtomatik scroll top */}
+                <div className="animate-fadeIn">
+                    <Outlet />
+                </div>
             </div>
-            <Footer />
 
-            {/* Fade in animatsiya */}
-            <style jsx>{`
-                @keyframes fadeIn {
-                    from { opacity: 0; transform: translateY(-10px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-                .animate-fadeIn {
-                    animation: fadeIn 0.3s ease-out;
-                }
-            `}</style>
+            {/* Footer */}
+            <Footer />
         </>
     );
 }

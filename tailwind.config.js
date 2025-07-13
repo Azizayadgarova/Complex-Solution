@@ -3,14 +3,21 @@ module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    // Agar sizda boshqa fayllar ham bo'lsa, ularni ham shu yerga qo'shing
   ],
   theme: {
     extend: {
-      // Agar sizda extend qismi bo'lsa, u shu yerda bo'ladi
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0', transform: 'translateY(-10px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        }
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.3s ease-out',
+      }
     },
   },
   plugins: [
-    require('tailwind-scrollbar-hide'), // <-- Shu qatorni qo'shing
+    require('tailwind-scrollbar-hide'),
   ],
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FaUserTie, FaCogs, FaLightbulb, FaStar, FaSyncAlt } from 'react-icons/fa';
 
 import {
@@ -17,44 +18,17 @@ import {
 import { CSS } from '@dnd-kit/utilities';
 
 const data = [
-  {
-    id: '1',
-    title: 'Tajriba va professionallik',
-    content: `Bizning jamoamiz tarkibida katta tajribaga ega bo‘lgan malakali ishlab chiquvchilar, chuqur tahlil qiluvchi analitiklar hamda yirik xalqaro loyihalarni samarali boshqargan loyiha menejerlari faoliyat yuritadi.`,
-    icon: FaUserTie
-  },
-  {
-    id: '2',
-    title: 'Individual yondashuv',
-    content: `Ko‘rib chiqamiz har bir mijozning ehtiyojlari va talablari, shuningdek, ularning biznes jarayonlarini chuqur tahlil qilamiz. Biz eng yaxshi, samarali va moslashtirilgan echimlarni taklif qilamiz`,
-    icon: FaCogs
-  },
-  {
-    id: '3',
-    title: 'Zamonaviy texnologiyalar',
-    content: `Biz foydalanamiz ilg'or texnologiyalar, shu jumladan sun'iy intellekt va mashina trening.`,
-    icon: FaLightbulb
-  },
-  {
-    id: '4',
-    title: 'Sifat kafolati',
-    content: `Yuqori sifat standartlari, jarayonlarning shaffofligi va mijozlar oldidagi majburiyatlar.`,
-    icon: FaStar
-  },
-  {
-    id: '5',
-    title: 'Adaptivlik',
-    content: `Loyihalarni keng ko‘lamda kengaytirish imkoniyati hamda talablar o‘zgarishlariga tez va samarali moslashish qobiliyati`,
-    icon: FaSyncAlt
-  }
+  { id: '1', title: 'advantages_1_title', content: 'advantages_1_content', icon: FaUserTie },
+  { id: '2', title: 'advantages_2_title', content: 'advantages_2_content', icon: FaCogs },
+  { id: '3', title: 'advantages_3_title', content: 'advantages_3_content', icon: FaLightbulb },
+  { id: '4', title: 'advantages_4_title', content: 'advantages_4_content', icon: FaStar },
+  { id: '5', title: 'advantages_5_title', content: 'advantages_5_content', icon: FaSyncAlt }
 ];
 
 const SortableItem = ({ id, title, content, isOpen, toggleOpen, icon: Icon }) => {
+  const { t } = useTranslation();
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition
-  };
+  const style = { transform: CSS.Transform.toString(transform), transition };
 
   const handleButtonClick = (e) => {
     e.stopPropagation();
@@ -77,7 +51,7 @@ const SortableItem = ({ id, title, content, isOpen, toggleOpen, icon: Icon }) =>
           <div className="bg-[#ffe5e8] p-2 rounded-full">
             <Icon className='text-[#FF3E54] text-xl' />
           </div>
-          <h3 className='text-[22px] font-semibold text-[#0E1F51] select-none'>{title}</h3>
+          <h3 className='text-[22px] font-semibold text-[#0E1F51] select-none'>{t(title)}</h3>
         </div>
 
         <button
@@ -85,18 +59,15 @@ const SortableItem = ({ id, title, content, isOpen, toggleOpen, icon: Icon }) =>
           onClick={handleButtonClick}
           type="button"
           aria-expanded={isOpen}
-          aria-label={isOpen ? 'Yopish' : 'Ochish'}
+          aria-label={isOpen ? t('collapse') : t('expand')}
         >
           {isOpen ? '−' : '+'}
         </button>
       </div>
 
-      <div
-        className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[1000px] mt-4 opacity-100' : 'max-h-0 opacity-0'
-          }`}
-      >
+      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[1000px] mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className='border-t border-gray-200 pt-4'>
-          <p className='text-gray-700 leading-relaxed text-[18px]'>{content}</p>
+          <p className='text-gray-700 leading-relaxed text-[18px]'>{t(content)}</p>
         </div>
       </div>
     </div>
@@ -104,6 +75,7 @@ const SortableItem = ({ id, title, content, isOpen, toggleOpen, icon: Icon }) =>
 };
 
 const Advantages = () => {
+  const { t } = useTranslation();
   const [items, setItems] = useState(data);
   const [openItems, setOpenItems] = useState([]);
 
@@ -134,18 +106,14 @@ const Advantages = () => {
   return (
     <div className='py-[100px] bg-gray-50 min-h-screen'>
       <div className='text-center mb-10 px-4'>
-        <p className='text-[#FF3E54] text-[20px] md:text-[24px] font-medium'>/ Наши преимущества /</p>
+        <p className='text-[#FF3E54] text-[20px] md:text-[24px] font-medium'>{t('advantages_subtitle')}</p>
         <h3 className='text-[#0E1F51] text-[30px] md:text-[46px] font-bold'>
-          Nega bizni tanlashadi?
+          {t('advantages_title')}
         </h3>
       </div>
 
       <div className='max-w-7xl mx-auto px-[4%]'>
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={handleDragEnd}
-        >
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={items.map((i) => i.id)} strategy={verticalListSortingStrategy}>
             {items.map((item) => (
               <SortableItem

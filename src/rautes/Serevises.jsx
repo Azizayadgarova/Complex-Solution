@@ -9,25 +9,26 @@ import {
   FaProjectDiagram,
 } from 'react-icons/fa';
 import Statistics from '../Components/Statistics';
+import { useTranslation } from 'react-i18next'; // ✅ i18n qo‘shildi
 
 const Serevises = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation(); // ✅ i18n hook
 
   const serviceTabs = [
-    { path: '', label: 'Texnik yordam', icon: <FaTools /> },
-    { path: 'one', label: 'Hujjatlar', icon: <FaFileAlt /> },
-    { path: 'two', label: 'Dasturiy yechimlar', icon: <FaLaptopCode /> },
-    { path: 'three', label: 'Konsalting', icon: <FaChartLine /> },
-    { path: 'four', label: 'IT-loyihalar', icon: <FaProjectDiagram /> },
+    { path: '', label: t('tech_support'), icon: <FaTools /> },
+    { path: 'one', label: t('documentation'), icon: <FaFileAlt /> },
+    { path: 'two', label: t('software_solutions'), icon: <FaLaptopCode /> },
+    { path: 'three', label: t('consulting'), icon: <FaChartLine /> },
+    { path: 'four', label: t('it_projects'), icon: <FaProjectDiagram /> },
   ];
 
   return (
     <div className='bg-white min-h-screen'>
-
       {/* Header */}
       <div className="bg-[#0E1F51] py-16 text-center">
-        <h1 className="text-[#FF3E54] text-[48px] font-bold mb-2">Bizning xizmatlar</h1>
-        <p className="text-white text-[18px]">Bosh sahifa / Xizmatlar</p>
+        <h1 className="text-[#FF3E54] text-[48px] font-bold mb-2">{t('our_services')}</h1>
+        <p className="text-white text-[18px]">{t('home')} / {t('services')}</p>
       </div>
 
       {/* Xizmat Tab Buttonlar */}
@@ -42,8 +43,7 @@ const Serevises = () => {
               transition duration-300 ease-in-out
               ${isActive
                 ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-md'
-                : 'bg-[#F7F7F7] text-[#0E1F51] hover:border-[#FF3E54] hover:text-[#FF3E54]'}`
-            }
+                : ' text-[#0E1F51] hover:border-[#FF3E54] hover:text-[#FF3E54]'}` }
           >
             <span className="text-[18px]">{icon}</span>
             <span>{label}</span>
@@ -51,16 +51,17 @@ const Serevises = () => {
         ))}
       </div>
 
-      {/* Chiqariladigan outletlar */}
+      {/* Outletlar */}
       <Outlet />
       <OurProcess />
+
       {/* Orqaga tugmasi */}
       <div className="flex justify-center my-10">
         <button
           onClick={() => navigate('/')}
           className='bg-[#FF3E54] text-white px-8 py-3 rounded-full text-[16px] font-semibold shadow-md hover:bg-[#e62b42] transition-transform hover:scale-105'
         >
-          ← Bosh sahifaga qaytish
+          ← {t('back_to_home')}
         </button>
       </div>
     </div>

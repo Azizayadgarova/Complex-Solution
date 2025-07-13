@@ -1,8 +1,8 @@
 {
-  "about": "About",
+  "aboute": "About",
   "services": "Our Services",
   "portfolio": "Portfolio",
-  "blog": "Blog",
+  "blog": "News",
   "contact": "Contact",
   "get_in_touch": "Get In Touch",
   "home": "Home",
@@ -42,5 +42,86 @@
   "privacy_policy_agree": "I agree to the privacy policy",
   "thank_you_title": "Thank you!",
   "thank_you_message": "We will get back to you as soon as possible!",
-  "ok_button": "OK"
+  "ok_button": "OK",
+  "result_title_1": "Commitment to Quality, Experience, and Results",
+  "result_desc_1": "Our team doesn't just write code — we turn client dreams into reality.\nEvery project is a harmony of strategic thinking, creative approach, and technical excellence.\n\nWe take full responsibility for the results and pay attention to every detail.\nWorking with us means confidence in quality and a guarantee of outcomes.",
+  "result_title_2": "Reliable Solutions, Determined Team",
+  "result_desc_2": "We are a professional team with experience in creating secure and reliable solutions\nthat constantly innovate. Every challenge is a new opportunity, and we are ready to face it.\n\nEvery project is more than just work — it is a path to trustworthy partnership and tangible results.\nWe deeply understand our clients’ goals and offer the most convenient, modern, and efficient technological solutions.",
+  "projects_title": "Our Projects",
+  "projects_loading": "Loading...",
+  "projects_error": "Error",
+  "projects_view": "View Project",
+  "advantages_title": "Why do clients choose us?",
+  "advantages_subtitle": "/ Our Advantages /",
+  "collapse": "Collapse",
+  "expand": "Expand",
+  "advantages_1_title": "Experience and Professionalism",
+  "advantages_1_content": "Our team consists of skilled developers with extensive experience, deep-analytical analysts, and project managers who have successfully led major international projects.",
+  "advantages_2_title": "Individual Approach",
+  "advantages_2_content": "We analyze each client’s needs and business processes thoroughly and offer the best, most effective, and tailored solutions.",
+  "advantages_3_title": "Modern Technologies",
+  "advantages_3_content": "We use advanced technologies, including artificial intelligence and machine learning.",
+  "advantages_4_title": "Quality Assurance",
+  "advantages_4_content": "High quality standards, process transparency, and commitment to clients are our priorities.",
+  "advantages_5_title": "Adaptability",
+  "advantages_5_content": "We provide scalable solutions and quickly adapt to changing requirements efficiently.",
+  "skill_title_part1": "Innovative approach",
+  "skill_title_highlight": "for every",
+  "skill_title_part2": "industry",
+  "skill_button": "Get an estimate",
+  "ourprocess": {
+    "tagline": "\\ Planning \\",
+    "title": "Our Process",
+    "research": {
+      "title": "Research",
+      "description": "We begin with a deep analysis of your needs and project goals, ensuring a comprehensive approach."
+    },
+    "planning": {
+      "title": "Planning",
+      "description": "We define key stages and resources for effective execution, developing a detailed plan and strategy."
+    },
+    "execution": {
+      "title": "Execution",
+      "description": "We begin implementation, strictly following the plan and ensuring high-quality delivery of all tasks."
+    },
+    "testing": {
+      "title": "Testing",
+      "description": "We ensure reliability and compliance with modern standards through thorough testing and refinements."
+    }
+  },
+  "stats": {
+    "projects": "Successful projects",
+    "services": "Business services",
+    "reviews": "Positive reviews",
+    "partners": "International partners"
+  },
+  "our_services": "Our Services",
+  "tech_support": "Technical Support",
+  "documentation": "Documentation",
+  "software_solutions": "Software Solutions",
+  "consulting": "Consulting",
+  "it_projects": "IT Projects",
+  "back_to_home": "Back to Home",
+  "portfolio_education": {
+    "title": "Online learning platform for a company in Tashkent, Uzbekistan",
+    "description": "A learning platform for occupational safety training and certification developed for LLC 'CENTR BEZOPASNOSTI TRUDA'. Includes a course builder, Click and Payme payment integration, and automatic certificate generation after course completion. Advantages: remote education, convenient payment, automatic certificates, course purchase monitoring, and content protection.",
+    "features": [
+      "✓ Protected content from downloading",
+      "✓ Click and Payme",
+      "✓ Course builder",
+      "✓ Participant progress analytics",
+      "✓ Online chat",
+      "✓ User-friendly admin interface"
+    ]
+  },
+   "welcome": "Welcome!",
+    "phoneLabel": "Phone Number",
+    "phonePlaceholder": "+998",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "togglePassword": "Show / hide",
+    "forgotPassword": "Forgot password?",
+    "signInButton": "Sign In"
 }
