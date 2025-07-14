@@ -3,9 +3,9 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react()], // Boshqa babel plugins QO‘SHMANG!
   build: {
-    outDir: 'dist', // <-- build natijasi shu papkaga yoziladi
+    outDir: 'dist',
   },
-  base: '/', // <-- kerakli bo‘lsa: deploy qayerda boshlanishi
+  base: '/',
 })
