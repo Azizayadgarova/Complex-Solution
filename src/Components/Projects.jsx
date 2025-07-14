@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FaExternalLinkAlt, FaInfoCircle, FaCodeBranch } from 'react-icons/fa'; // Iconkalarni import qilish
+import { FaExternalLinkAlt, FaInfoCircle, FaCodeBranch } from 'react-icons/fa';
 
 const Projects = () => {
   const { t } = useTranslation();
@@ -15,37 +15,37 @@ const Projects = () => {
         return res.json();
       })
       .then(data => {
-        setProjects(data);
+        setProjects(data || []); // Ensure data is never undefined
         setLoading(false);
       })
       .catch(err => {
         setError(err.message);
         setLoading(false);
+        setProjects([]); // Set empty array on error
       });
   }, []);
 
-  if (loading)
+  if (loading) {
     return <p className="text-center mt-10 text-gray-500 text-lg animate-pulse">{t('projects_loading')}...</p>;
+  }
 
-  if (error)
+  if (error) {
     return (
       <p className="text-center mt-10 text-red-600 text-lg font-medium">
         {t('projects_error')}: {error} 😟
       </p>
     );
+  }
 
   return (
     <div className="px-4 md:px-8 lg:px-[5%] bg-gradient-to-b from-[#F7F7F7] to-[#EFEFEF] py-16 md:py-24">
       <h2 className="text-[50px] font-extrabold text-center text-[#0E1F51] mb-12 relative">
         <span className="relative z-10">{t('projects_title')}</span>
-        {/* Sarlavha ostidagi chiziqni qaytarmoqchi bo'lsangiz, quyidagi qatorni faollashtiring: */}
-        {/* <span className="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-24 h-2 bg-[#FF3E54] rounded-full opacity-75"></span> */}
       </h2>
 
-      {/* `scrollbar-hide` klassi olib tashlandi, endi scrollbar ko'rinadi */}
       <div className="overflow-x-auto pb-4">
         <div className="flex flex-nowrap gap-8 mt-10 justify-start md:justify-center">
-          {projects.length > 0 ? (
+          {projects && projects.length > 0 ? (
             projects.map((project) => (
               <div
                 key={project._id}
@@ -88,7 +88,7 @@ const Projects = () => {
                         {t('projects_no_link')}
                       </span>
                     )}
-                    {project.repoLink && ( // Agar sizda repo havolasi bo'lsa
+                    {project.repoLink && (
                       <a
                         href={project.repoLink}
                         target="_blank"
@@ -111,8 +111,6 @@ const Projects = () => {
           )}
         </div>
       </div>
-
-      {/* Scrollbarni yashirgan style bloki olib tashlandi */}
     </div>
   );
 };
