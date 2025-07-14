@@ -1,5 +1,5 @@
 // src/router.jsx (yoki qayerda bo‘lsa)
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, createHashRouter } from 'react-router-dom';
 import MainLayout from "./layout/MainLayout";
 import AdminLayout from "./layout/AdminLayout";
 import SignIn from './Components/SignIn';
@@ -23,7 +23,7 @@ import Advantage4 from "./Components/Advantage4";
 import Advantage5 from "./Components/Advantage5";
 import ProtectedRoute from './ProtectedRoute';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <MainLayout />,
