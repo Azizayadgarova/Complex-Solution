@@ -35,8 +35,6 @@ const OurService = () => {
                     className='w-full rounded-md pr-[30px] max-w-[350px] sm:max-w-[400px] md:max-w-[500px] h-auto object-contain'
                 />
             </div>
-
-            {/* Matn kontenti */}
             <div className='w-full md:w-1/2 md:pl-8 text-center md:text-left'>
                 <h2 className='text-[#FF3E54] text-2xl sm:text-3xl md:text-[30px] font-medium mb-4'>/ {t('services')} /</h2>
                 <ul className='space-y-3 text-[#0E1F51] gap-y-[10px] text-base sm:text-lg'>
