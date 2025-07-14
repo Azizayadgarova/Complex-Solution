@@ -131,7 +131,7 @@ const GetInTuch = () => {
                 htmlFor="privacyAccepted"
                 className="text-[#252525] text-sm sm:text-base"
               >
-                Я согласен принятj{' '}
+                Я согласен принятьlm{' '}
                 <a
                   href="/privacy-policy"
                   target="_blank"
