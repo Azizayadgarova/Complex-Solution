@@ -13,7 +13,6 @@ import {
 
 const Portfolio = () => {
   const { t } = useTranslation();
-
   const tabs = [
     { path: '', labelKey: 'all', icon: <FaList /> },
     { path: 'portfoliolife', labelKey: 'life', icon: <FaNetworkWired /> },
@@ -28,9 +27,7 @@ const Portfolio = () => {
     <div className="bg-white mb-[100px]">
       {/* Header */}
       <div className="bg-[#0E1F51] py-16 text-center">
-        <h1 className="text-[#FF3E54] text-4xl md:text-5xl font-bold mb-2">
-          {t('portfolio')}
-        </h1>
+        <h1 className="text-[#FF3E54] text-4xl md:text-5xl font-bold mb-2">{t('portfolio')}</h1>
         <p className="text-white text-base md:text-lg">
           {t('home')} / {t('portfolio')}
         </p>
@@ -38,9 +35,7 @@ const Portfolio = () => {
 
       {/* Experience Title */}
       <div className="flex flex-col items-center mb-12 mt-24 px-4">
-        <h2 className="text-[#0E1F51] text-3xl md:text-4xl font-medium">
-          {t('experience')}
-        </h2>
+        <h2 className="text-[#0E1F51] text-3xl md:text-4xl font-medium">{t('experience')}</h2>
       </div>
 
       {/* Tabs Navigation */}
@@ -59,13 +54,16 @@ const Portfolio = () => {
               }
               ${index === 0 ? 'rounded-l-full' : ''}
               ${index === tabs.length - 1 ? 'rounded-r-full' : ''}
-              ${index > 0 ? '-ml-px' : ''}`
+              ${index > 0 ? '-ml-px' : ''}
+              `
             }
           >
             <span className="transition-transform group-hover:-translate-y-1 group-hover:scale-105">
               {icon}
             </span>
             <span className="relative z-10">{t(labelKey)}</span>
+
+            {/* Shine effect */}
             <span className="absolute top-0 left-0 w-full h-full rounded-full bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-10 group-hover:animate-shine"></span>
           </NavLink>
         ))}

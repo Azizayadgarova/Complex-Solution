@@ -8,7 +8,7 @@ import Abaute from "./rautes/Abaute";
 import Blog from "./rautes/Blog";
 import Contact from "./rautes/Contact";
 import Portfolio from "./rautes/Portfolio";
-import Serevises from "./rautes/Serevises";
+import Servises from "./rautes/Servises";
 import PortfolioAll from "./Components/PortfolioAll";
 import PortfolioLife from "./Components/PortfolioLife";
 import PortfolioMoments from "./Components/PortfolioMoments";
@@ -32,7 +32,7 @@ const router = createHashRouter([
       { path: "aboute", element: <Abaute /> },
       {
         path: "services",
-        element: <Serevises />,
+        element: <Servises/>,
         children: [
           { index: true, element: <Advantage1 /> },
           { path: "one", element: <Advantage2 /> },

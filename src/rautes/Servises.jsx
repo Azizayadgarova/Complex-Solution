@@ -6,7 +6,7 @@ import {
 } from 'react-icons/fa';
 import OurProcess from '../Components/OurProcess';
 
-const Serevises = () => {
+const Servises = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -62,4 +62,4 @@ const Serevises = () => {
   );
 };
 
-export default Serevises;
+export default Servises;
