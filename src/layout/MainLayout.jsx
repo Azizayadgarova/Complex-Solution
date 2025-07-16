@@ -33,8 +33,8 @@ export default function MainLayout() {
                                     to={`/${path}`}
                                     className={`relative group pb-1 text-[#0E1F51] hover:text-[${HOVER_COLOR}] block`}
                                 >
-                                    <p>Hello</p>
-
+                                    <span>{t(path)}</span>
+                                    <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-[${HOVER_COLOR}] transition-all duration-150 group-hover:w-full`}></span>
                                 </Link>
                             </li>
                         ))}
