@@ -44,25 +44,15 @@ const Projects = () => {
       </h2>
 
       <div className="overflow-x-auto pb-4">
-        <div className="flex flex-nowrap gap-8 mt-10 justify-start md:justify-center">
+        <div className="flex flex-nowrap gap-8 flex-wrap mt-10 justify-start md:justify-center">
           {projects && projects.length > 0 ? (
             projects.map((project) => (
               <div
                 key={project._id}
-                className="bg-white rounded-2xl shadow-xl flex-shrink-0 w-80 sm:w-96 lg:w-[420px] flex flex-col hover:shadow-2xl transition-all duration-500 ease-in-out transform hover:-translate-y-2 group"
+                className="bg-white rounded-2xl shadow-xl flex-shrink-0 w-[100%] sm:w-[45%] lg:w-[40%] flex flex-col hover:shadow-2xl transition-all duration-500 ease-in-out transform hover:-translate-y-2 group"
               >
-                {project.img && (
-                  <div className="h-64 sm:h-72 lg:h-80 overflow-hidden p-4">
-                    <img
-                      src={project.img}
-                      alt={project.name}
-                      className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500 ease-in-out"
-                    />
-                  </div>
-                )}
-
                 <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-2xl font-bold text-[#0E1F51] mb-3">
+                  <h3 className="text-xl py-[20px] font-bold text-[#0E1F50] mb-3 sm:text-[35px] lg:text-[40px]">
                     {project.name}
                   </h3>
                   <p className="text-base text-gray-700 flex-grow leading-relaxed mb-4">
@@ -102,6 +92,16 @@ const Projects = () => {
                     )}
                   </div>
                 </div>
+                {project.img && (
+                  <div className="h-64 sm:h-72 lg:h-80 overflow-hidden p-4">
+                    <img
+                      src={project.img}
+                      alt={project.name}
+                      className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500 ease-in-out"
+                    />
+                  </div>
+                )}
+
               </div>
             ))
           ) : (
