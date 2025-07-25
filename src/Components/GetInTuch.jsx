@@ -76,12 +76,12 @@ const GetInTuch = () => {
   };
 
   return (
-    <div className="bg-red-50 mt-10 py-16 px-4 sm:px-6 md:px-10 lg:px-20">
+    <div className="bg-[#e1fae4] mt-10 py-16 px-4 sm:px-6 md:px-10 lg:px-20">
       <div className="max-w-7xl mx-auto text-center mb-12">
-        <p className="text-[#FF3E54] text-sm sm:text-base md:text-lg font-semibold uppercase tracking-widest mb-2">
+        <p className="text-[#2A5E91] text-sm sm:text-base md:text-lg font-semibold uppercase tracking-widest mb-2">
           \ {t('get_in_touch')} \
         </p>
-        <h2 className="text-[#0E1F51] text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
+        <h2 className="text-[#254B73] text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
           {t('lets_talk')}
         </h2>
       </div>
@@ -131,7 +131,7 @@ const GetInTuch = () => {
                 htmlFor="privacyAccepted"
                 className="text-[#252525] text-sm sm:text-base"
               >
-                Я согласен принятьlm{' '}
+              
                 <a
                   href="/privacy-policy"
                   target="_blank"
@@ -145,7 +145,7 @@ const GetInTuch = () => {
 
             <button
               type="submit"
-              className="bg-[#FF3E54] text-white text-sm sm:text-base px-6 py-3 rounded-md hover:bg-[#E0344A] transition duration-200 shadow-md hover:shadow-lg focus:ring-2 focus:ring-[#FF3E54]"
+              className="bg-[#66BB6A] text-white text-sm sm:text-base px-6 py-3 rounded-md hover:bg-[#4CAF50] transition duration-200 shadow-md hover:shadow-lg focus:ring-2 focus:ring-[#FF3E54]"
             >
               {t('send_now')}
             </button>
@@ -173,7 +173,7 @@ const GetInTuch = () => {
           </div>
 
           <div className="mt-10 text-center">
-            <h3 className="font-semibold text-xl sm:text-2xl text-[#0E1F51] mb-4">
+            <h3 className="font-semibold text-xl sm:text-2xl text-gray-600 mb-4">
               {t('follow_us')}
             </h3>
             <div className="flex justify-center gap-5 flex-wrap">
@@ -181,7 +181,7 @@ const GetInTuch = () => {
                 <a
                   key={i}
                   href="#"
-                  className="p-3 bg-[#FF3E54] rounded-lg hover:bg-[#E0344A] transition inline-flex items-center justify-center"
+                  className="p-3 bg-[#66BB6A] rounded-lg hover:bg-[#E0344A] transition inline-flex items-center justify-center"
                 >
                   <img src={icon} alt="icon" className="w-5 h-5 sm:w-6 sm:h-6" />
                 </a>

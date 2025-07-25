@@ -1,60 +1,112 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import servises from '../assets/aboute.jpg';
 import { NavLink } from 'react-router-dom';
+import { FaLaptopCode, FaBullhorn, FaRocket, FaPaintBrush, FaCogs } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import rasm1 from '../assets/rasm1.jpg';
+import rasm2 from '../assets/rasm2.jpg';
+import rasm3 from '../assets/rasm3.jpg';
+import rasm4 from '../assets/rasm4.jpg';
+import rasm5 from '../assets/rasm5.jpg';
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.2, duration: 0.6, ease: 'easeOut' }
+  }),
+};
 
 const OurService = () => {
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
-    const renderBoldBeforeColon = (text) => {
-        const [boldPart, ...rest] = text.split(':');
-        return (
-            <>
-                <strong>{boldPart}:</strong>{rest.join(':')}
-            </>
-        );
-    };
+  const serviceItems = [
+    { key: 'serviceone', icon: <FaLaptopCode className="text-white text-3xl" />, path: '/services', bgImage: rasm1 },
+    { key: 'servicetwo', icon: <FaBullhorn className="text-white text-3xl" />, path: '/services/one', bgImage: rasm2 },
+    { key: 'servicethree', icon: <FaRocket className="text-white text-3xl" />, path: '/services/two', bgImage: rasm3 },
+    { key: 'servicefour', icon: <FaPaintBrush className="text-white text-3xl" />, path: '/services/three', bgImage: rasm4 },
+    { key: 'servicefive', icon: <FaCogs className="text-white text-3xl" />, path: '/services/four', bgImage: rasm5 }
+  ];
 
-    // Xizmatlar va ularning path-lari
-    const serviceKeys = [
-        { key: 'serviceone', path: '/services' },        // index route
-        { key: 'servicetwo', path: '/services/one' },
-        { key: 'servicethree', path: '/services/two' },
-        { key: 'servicefour', path: '/services/three' },
-        { key: 'servicefive', path: '/services/four' },
-    ];
+  return (
+    <div className="py-20 bg-white text-center px-4 sm:px-6 md:px-10 lg:px-14 xl:px-20">
+      <div className="max-w-4xl mx-auto text-center mb-16">
+        <motion.p
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          className="text-base uppercase text-[#4CAF50] font-semibold tracking-wider mb-2"
+        >
+          \ {t('servises')} \
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+          className="text-4xl lg:text-5xl font-bold text-[#0E1F51] mt-4"
+        >
+          {t('our_services')}
+        </motion.h2>
+      </div>
 
-    return (
-        // Asosiy konteyner: Mobil va desktopda flex yo'nalishini o'zgartirish
-        <div className='px-[4%]  sm:px-6 lg:px-[4%] flex flex-col md:flex-row items-center justify-between my-10 sm:my-16 md:my-[100px]'>
-            {/* Rasm qismi */}
-            <div className='w-[50%] h-[600px] md:w-1/2 flex justify-center md:justify-start mb-8 md:mb-0'>
-                <img
-                    src={servises}
-                    alt="Our services illustration"
-                    className='w-full rounded-md pr-[30px] max-w-[350px] sm:max-w-[400px] md:max-w-[500px] h-auto object-contain'
-                />
-            </div>
-            <div className='w-full md:w-1/2 md:pl-8 text-center md:text-left'>
-                <h2 className='text-[#FF3E54] text-2xl sm:text-3xl md:text-[30px] font-medium mb-4'>/ {t('services')} /</h2>
-                <ul className='space-y-3 text-[#0E1F51] gap-y-[10px] text-base sm:text-lg'>
-                    {serviceKeys.map(({ key, path }) => (
-                        <li
-                            key={key}
-                            className='flex justify-between items-start bg-[#F7F7F7] px-6 py-3 rounded-lg hover:shadow-md transition-all duration-200'
-                        >
-                            <span className="max-w-[85%]">{renderBoldBeforeColon(t(key))}</span>
-                            <NavLink
-                                to={path}
-                                className="text-[24px] sm:text-[30px] text-[#FF3E54] hover:text-[#e62b42] transition-transform duration-200 transform hover:translate-x-1"
-                            > → </NavLink>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 max-w-7xl mx-auto">
+        {serviceItems.map(({ key, icon, path, bgImage }, index) => {
+          const [title, ...description] = t(key).split(':');
 
-    );
+          let colSpan = 'lg:col-span-2'; // default for 1-3
+          if (index >= 3) colSpan = 'lg:col-span-3'; // last 2 cards span 3 columns
+
+          return (
+            <motion.div
+              key={key}
+              custom={index}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={cardVariants}
+              whileHover={{ y: -5, boxShadow: '0 15px 30px rgba(0,0,0,0.1)' }}
+              className={`relative bg-white rounded-xl border border-gray-200 shadow-lg px-8 py-10 flex flex-col items-center text-center transition duration-300 group hover:border-[#0066CC] overflow-hidden ${colSpan}`}
+              style={{
+                backgroundImage: `url(${bgImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+              }}
+            >
+              <div className="absolute inset-0 bg-black opacity-40 group-hover:opacity-50 transition-opacity duration-300"></div>
+
+              <div className="mb-6 relative z-10">
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 + 0.2 }}
+                  className="inline-block p-4 rounded-xl border-white shadow-sm"
+                >
+                  {icon}
+                </motion.div>
+              </div>
+
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 relative z-10">{title}</h3>
+              <p className="text-white text-xl mb-4 max-w-[320px] sm:max-w-[300px] relative z-10">
+                {description.join(':')}
+              </p>
+
+              <NavLink
+                to={path}
+                className="group text-white font-semibold flex items-center gap-2 hover:text-[#4CAF50] transition-all duration-300 text-base mt-6 relative z-10"
+              >
+                {t('more')}
+                <span className="text-lg transform transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </NavLink>
+            </motion.div>
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
 export default OurService;

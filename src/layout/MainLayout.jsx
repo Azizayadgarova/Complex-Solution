@@ -1,11 +1,11 @@
 import { Outlet, Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { useState } from "react";
-import logo from '../assets/logo.png';
+import coponylogo from '../assets/logo.png';
 import Footer from "../Components/Footer";
 import ScrollToTop from '../ScrollToTop'; // ⬅️ ScrollToTop import qilindi
 
-const HOVER_COLOR = '#FF3E54';
+const HOVER_COLOR = '#265a88';
 
 export default function MainLayout() {
     const { t, i18n } = useTranslation();
@@ -21,9 +21,10 @@ export default function MainLayout() {
                 <div className="flex items-center justify-between py-[18px] px-[4%]">
                     <div>
                         <Link to="/" onClick={closeMenu}>
-                            <img className="h-20 outline-none" src={logo} alt="logo" />
+                            <img className="h-[95px] outline-none" src={coponylogo} alt="logo" />
                         </Link>
                     </div>
+                    
 
                     {/* Desktop menu */}
                     <ul className="hidden md:flex text-[17px] font-medium gap-[25px] items-center">
@@ -31,19 +32,19 @@ export default function MainLayout() {
                             <li key={path}>
                                 <Link
                                     to={`/${path}`}
-                                    className={`relative group pb-1 text-[#0E1F51] hover:text-[${HOVER_COLOR}] block`}
+                                    className={`relative group pb-1 text-[#2a5e91] hover:text-[${HOVER_COLOR}] block`}
                                 >
                                     <span>{t(path)}</span>
                                     <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-[${HOVER_COLOR}] transition-all duration-150 group-hover:w-full`}></span>
                                 </Link>
                             </li>
                         ))}
-                        <li>hello</li>
+                   
                         <li>
                             <Link
                                 to="/contact"
-                                className="w-[130px] h-[40px] bg-[#FF3E54] text-white font-normal rounded-[5px]
-                                flex items-center justify-center hover:bg-[#E0344A] transition duration-200 shadow-md hover:shadow-lg"
+                                className="w-[130px] h-[40px] bg-[#4CAF50] text-white font-normal rounded-[5px]
+                                flex items-center justify-center hover:bg-[#388E3C] transition duration-200 shadow-md hover:shadow-lg"
                             >
                                 {t('get_in_touch')}
                             </Link>
@@ -52,7 +53,7 @@ export default function MainLayout() {
                         <li>
                             <select
                                 onChange={(e) => i18n.changeLanguage(e.target.value)}
-                                className="bg-white text-[#0E1F51] rounded-[5px] px-3 py-2 border-white outline-none"
+                                className="bg-white text-[#337ab7] rounded-[5px] px-3 py-2 border-white outline-none"
                                 value={i18n.language}
                             >
                                 <option value="uz">UZ</option>

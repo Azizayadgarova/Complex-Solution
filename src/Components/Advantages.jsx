@@ -1,133 +1,184 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FaUserTie, FaCogs, FaLightbulb, FaStar, FaSyncAlt } from 'react-icons/fa';
-
 import {
-  DndContext,
-  closestCenter,
-  PointerSensor,
-  useSensor,
-  useSensors
-} from '@dnd-kit/core';
-import {
-  arrayMove,
-  SortableContext,
-  useSortable,
-  verticalListSortingStrategy
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+  FaUserTie,
+  FaCogs,
+  FaLightbulb,
+  FaShieldAlt,
+  FaSyncAlt
+} from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { HiPlus, HiMinus } from 'react-icons/hi';
 
 const data = [
   { id: '1', title: 'advantages_1_title', content: 'advantages_1_content', icon: FaUserTie },
   { id: '2', title: 'advantages_2_title', content: 'advantages_2_content', icon: FaCogs },
   { id: '3', title: 'advantages_3_title', content: 'advantages_3_content', icon: FaLightbulb },
-  { id: '4', title: 'advantages_4_title', content: 'advantages_4_content', icon: FaStar },
-  { id: '5', title: 'advantages_5_title', content: 'advantages_5_content', icon: FaSyncAlt }
+  { id: '4', title: 'advantages_4_title', content: 'advantages_4_content', icon: FaShieldAlt },
+  { id: '5', title: 'advantages_5_title', content: 'advantages_5_content', icon: FaSyncAlt },
 ];
 
-const SortableItem = ({ id, title, content, isOpen, toggleOpen, icon: Icon }) => {
-  const { t } = useTranslation();
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
-  const style = { transform: CSS.Transform.toString(transform), transition };
+const cardVariants = {
+  rest: i => ({
+    scale: 1,
+    backgroundColor: i % 2 === 0 ? '#1C2D64' : '#FFFFFF',
+    color: i % 2 === 0 ? '#FFFFFF' : '#1C2D64',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+  }),
+  hover: {
+    scale: 1.03,
+    boxShadow: '0 5px 15px rgba(0,0,0,0.2)'
+  },
+  open: {
+    boxShadow: '0 10px 20px rgba(0,0,0,0.2)',
+  }
+};
 
-  const handleButtonClick = (e) => {
-    e.stopPropagation();
-    toggleOpen(id);
-  };
-
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      className={`border border-gray-300 rounded-xl p-5 bg-white/70 backdrop-blur-md mb-4 shadow-md transition-all duration-300 hover:shadow-lg`}
-    >
-      <div className='flex justify-between items-center'>
-        <div
-          {...listeners}
-          className='flex-1 cursor-move pr-4 flex items-center gap-4'
-          onClick={() => toggleOpen(id)}
-        >
-          <div className="bg-[#ffe5e8] p-2 rounded-full">
-            <Icon className='text-[#FF3E54] text-xl' />
-          </div>
-          <h3 className='text-[22px] font-semibold text-[#0E1F51] select-none'>{t(title)}</h3>
-        </div>
-
-        <button
-          className='text-2xl font-bold text-[#FF3E54] focus:outline-none hover:text-[#e6334a] transition duration-200 px-2  select-none'
-          onClick={handleButtonClick}
-          type="button"
-          aria-expanded={isOpen}
-          aria-label={isOpen ? t('collapse') : t('expand')}
-        >
-          {isOpen ? '−' : '+'}
-        </button>
-      </div>
-
-      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[1000px] mt-4 opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className='border-t border-gray-200 pt-4'>
-          <p className='text-gray-700 leading-relaxed text-[18px]'>{t(content)}</p>
-        </div>
-      </div>
-    </div>
-  );
+const contentVariants = {
+  collapsed: { height: 0, opacity: 0 },
+  open: { height: 'auto', opacity: 1 },
 };
 
 const Advantages = () => {
   const { t } = useTranslation();
-  const [items, setItems] = useState(data);
-  const [openItems, setOpenItems] = useState([]);
+  const [expanded, setExpanded] = useState(null);
 
-  const toggleOpen = (id) => {
-    setOpenItems((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
-  };
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8
-      }
-    })
-  );
-
-  const handleDragEnd = (event) => {
-    const { active, over } = event;
-
-    if (active.id !== over?.id) {
-      const oldIndex = items.findIndex((i) => i.id === active.id);
-      const newIndex = items.findIndex((i) => i.id === over?.id);
-      setItems((items) => arrayMove(items, oldIndex, newIndex));
-    }
+  const toggle = idx => {
+    setExpanded(prev => (prev === idx ? null : idx));
   };
 
   return (
-    <div className='py-[100px] bg-gray-50 min-h-screen'>
-      <div className='text-center mb-10 px-4'>
-        <p className='text-[#FF3E54] text-[20px] md:text-[24px] font-medium'>{t('advantages_subtitle')}</p>
-        <h3 className='text-[#0E1F51] text-[30px] md:text-[46px] font-bold'>
-          {t('advantages_title')}
-        </h3>
+    <div className="px-4 md:px-8 lg:px-16 py-20">
+      <h2 className="text-3xl md:text-4xl font-bold text-center text-[#1C2D64] mb-16">
+        {t('advantages_subtitle')}
+      </h2>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {data.slice(0, 3).map((item, i) => {
+          const isOpen = expanded === i;
+          const Icon = item.icon;
+          return (
+            <motion.div
+              key={item.id}
+              custom={i}
+              layout
+              variants={cardVariants}
+              initial="rest"
+              animate={isOpen ? 'open' : 'rest'}
+              whileHover="hover"
+              transition={{ duration: 0.3 }}
+              className="relative rounded-2xl p-10 pt-10 flex flex-col items-center text-center cursor-pointer"
+            >
+              <div
+                className="absolute -top-6 p-4 rounded-full"
+                style={{ backgroundColor: i % 2 === 0 ? '#FFFFFF' : '#4CAF50' }}
+              >
+                <Icon size={32} style={{ color: i % 2 === 0 ? '#1C2D64' : '#FFFFFF' }} />
+              </div>
+              <h3 className="text-xl font-semibold mt-4 mb-4">
+                {t(item.title)}
+              </h3>
+
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.p
+                    key={`cont-${item.id}`}
+                    variants={contentVariants}
+                    initial="collapsed"
+                    animate="open"
+                    exit="collapsed"
+                    transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                    className="mb-4 overflow-hidden"
+                    style={{ color: i % 2 === 0 ? '#FFFFFF' : '#1C2D64' }}
+                  >
+                    {t(item.content)}
+                  </motion.p>
+                )}
+              </AnimatePresence>
+
+              <button
+                onClick={() => toggle(i)}
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition`}
+                style={{
+                  color: isOpen
+                    ? (i % 2 === 0 ? '#1C2D64' : '#FFFFFF')
+                    : (i % 2 === 0 ? '#FFFFFF' : '#1C2D64'),
+                  backgroundColor: isOpen
+                    ? (i % 2 === 0 ? '#4CAF50' : '#1C2D64') // Adjusted for better contrast when open
+                    : 'transparent',
+                  border: `2px solid ${i % 2 === 0 ? '#1C2D64' : '#4CAF50'}` // Added border for clarity
+                }}
+              >
+                {isOpen ? <HiMinus size={20} /> : <HiPlus size={20} />}
+              </button>
+            </motion.div>
+          );
+        })}
       </div>
 
-      <div className='max-w-7xl mx-auto px-[4%]'>
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-          <SortableContext items={items.map((i) => i.id)} strategy={verticalListSortingStrategy}>
-            {items.map((item) => (
-              <SortableItem
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                content={item.content}
-                isOpen={openItems.includes(item.id)}
-                toggleOpen={toggleOpen}
-                icon={item.icon}
-              />
-            ))}
-          </SortableContext>
-        </DndContext>
+      {/* Separate grid for the last two cards to control their width */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 max-w-4xl mx-auto">
+        {data.slice(3, 5).map((item, idx) => {
+          const i = idx + 3; // Adjust index for correct mapping to data array
+          const isOpen = expanded === i;
+          const Icon = item.icon;
+          return (
+            <motion.div
+              key={item.id}
+              custom={i}
+              layout
+              variants={cardVariants}
+              initial="rest"
+              animate={isOpen ? 'open' : 'rest'}
+              whileHover="hover"
+              transition={{ duration: 0.3 }}
+              className="relative rounded-2xl p-10 pt-10 flex flex-col items-center text-center cursor-pointer"
+            >
+              <div
+                className="absolute -top-6 p-4 rounded-full"
+                style={{ backgroundColor: i % 2 === 0 ? '#FFFFFF' : '#4CAF50' }}
+              >
+                <Icon size={32} style={{ color: i % 2 === 0 ? '#1C2D64' : '#FFFFFF' }} />
+              </div>
+              <h3 className="text-xl font-semibold mt-4 mb-4">
+                {t(item.title)}
+              </h3>
+
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.p
+                    key={`cont-${item.id}`}
+                    variants={contentVariants}
+                    initial="collapsed"
+                    animate="open"
+                    exit="collapsed"
+                    transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                    className="mb-4 overflow-hidden"
+                    style={{ color: i % 2 === 0 ? '#FFFFFF' : '#1C2D64' }}
+                  >
+                    {t(item.content)}
+                  </motion.p>
+                )}
+              </AnimatePresence>
+
+              <button
+                onClick={() => toggle(i)}
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition`}
+                style={{
+                  color: isOpen
+                    ? (i % 2 === 0 ? '#1C2D64' : '#FFFFFF')
+                    : (i % 2 === 0 ? '#FFFFFF' : '#1C2D64'),
+                  backgroundColor: isOpen
+                    ? (i % 2 === 0 ? '#4CAF50' : '#1C2D64') // Adjusted for better contrast when open
+                    : 'transparent',
+                  border: `2px solid ${i % 2 === 0 ? '#1C2D64' : '#4CAF50'}` // Added border for clarity
+                }}
+              >
+                {isOpen ? <HiMinus size={20} /> : <HiPlus size={20} />}
+              </button>
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );
