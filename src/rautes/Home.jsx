@@ -194,11 +194,13 @@ const Home = () => {
       {/* Pastki bo‘limlar */}
       <AbouteUs />
       <OurProcess />
-          <Results />
+      <Results />
+
       <OurService />
+
       <Statistics />
       <Skill />
-      <Advantages />
+ <Advantages />
       <Projects />
       <GetInTuch />
     </div>

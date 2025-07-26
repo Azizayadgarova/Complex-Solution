@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  FaUserTie,
-  FaCogs,
-  FaLightbulb,
-  FaShieldAlt,
-  FaSyncAlt
-} from 'react-icons/fa';
+import { FaUserTie, FaCogs, FaLightbulb, FaShieldAlt, FaSyncAlt } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiPlus, HiMinus } from 'react-icons/hi';
 
@@ -19,19 +13,9 @@ const data = [
 ];
 
 const cardVariants = {
-  rest: i => ({
-    scale: 1,
-    backgroundColor: i % 2 === 0 ? '#1C2D64' : '#FFFFFF',
-    color: i % 2 === 0 ? '#FFFFFF' : '#1C2D64',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-  }),
-  hover: {
-    scale: 1.03,
-    boxShadow: '0 5px 15px rgba(0,0,0,0.2)'
-  },
-  open: {
-    boxShadow: '0 10px 20px rgba(0,0,0,0.2)',
-  }
+  rest: { scale: 1, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' },
+  hover: { scale: 1.03, boxShadow: '0 5px 15px rgba(0,0,0,0.2)' },
+  open: { boxShadow: '0 10px 20px rgba(0,0,0,0.2)' },
 };
 
 const contentVariants = {
@@ -43,20 +27,22 @@ const Advantages = () => {
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState(null);
 
-  const toggle = idx => {
-    setExpanded(prev => (prev === idx ? null : idx));
-  };
+  const toggle = idx => setExpanded(prev => (prev === idx ? null : idx));
 
   return (
-    <div className="px-4 md:px-8 lg:px-16 py-20">
+    <div className="px-4 bg-[#F7F7F7] md:px-8 lg:px-16 py-20">
       <h2 className="text-3xl md:text-4xl font-bold text-center text-[#1C2D64] mb-16">
         {t('advantages_subtitle')}
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {data.slice(0, 3).map((item, i) => {
+      <div className="grid grid-cols-1 gap-10">
+        {data.map((item, i) => {
           const isOpen = expanded === i;
           const Icon = item.icon;
+          // Static inline styles for background and text color
+          const bgColor = i % 2 === 0 ? '#1C3B6F' : '#FFFFFF';
+          const textColor = i % 2 === 0 ? '#FFFFFF' : '#333333';
+
           return (
             <motion.div
               key={item.id}
@@ -67,7 +53,8 @@ const Advantages = () => {
               animate={isOpen ? 'open' : 'rest'}
               whileHover="hover"
               transition={{ duration: 0.3 }}
-              className="relative rounded-2xl p-10 pt-10 flex flex-col items-center text-center cursor-pointer"
+              style={{ backgroundColor: bgColor, color: textColor }}
+              className="w-full relative rounded-2xl p-4 pt-10 flex flex-col items-center text-center cursor-pointer"
             >
               <div
                 className="absolute -top-6 p-4 rounded-full"
@@ -87,9 +74,9 @@ const Advantages = () => {
                     initial="collapsed"
                     animate="open"
                     exit="collapsed"
-                    transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
+                    transition={{ duration: 0.3 }}
                     className="mb-4 overflow-hidden"
-                    style={{ color: i % 2 === 0 ? '#FFFFFF' : '#1C2D64' }}
+                    style={{ color: textColor }}
                   >
                     {t(item.content)}
                   </motion.p>
@@ -98,80 +85,13 @@ const Advantages = () => {
 
               <button
                 onClick={() => toggle(i)}
-                className={`w-10 h-10 rounded-full flex items-center justify-center transition`}
+                className="w-10 h-10 rounded-full flex items-center justify-center transition"
                 style={{
                   color: isOpen
-                    ? (i % 2 === 0 ? '#1C2D64' : '#FFFFFF')
-                    : (i % 2 === 0 ? '#FFFFFF' : '#1C2D64'),
-                  backgroundColor: isOpen
-                    ? (i % 2 === 0 ? '#4CAF50' : '#1C2D64') // Adjusted for better contrast when open
-                    : 'transparent',
-                  border: `2px solid ${i % 2 === 0 ? '#1C2D64' : '#4CAF50'}` // Added border for clarity
-                }}
-              >
-                {isOpen ? <HiMinus size={20} /> : <HiPlus size={20} />}
-              </button>
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {/* Separate grid for the last two cards to control their width */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12 max-w-4xl mx-auto">
-        {data.slice(3, 5).map((item, idx) => {
-          const i = idx + 3; // Adjust index for correct mapping to data array
-          const isOpen = expanded === i;
-          const Icon = item.icon;
-          return (
-            <motion.div
-              key={item.id}
-              custom={i}
-              layout
-              variants={cardVariants}
-              initial="rest"
-              animate={isOpen ? 'open' : 'rest'}
-              whileHover="hover"
-              transition={{ duration: 0.3 }}
-              className="relative rounded-2xl p-10 pt-10 flex flex-col items-center text-center cursor-pointer"
-            >
-              <div
-                className="absolute -top-6 p-4 rounded-full"
-                style={{ backgroundColor: i % 2 === 0 ? '#FFFFFF' : '#4CAF50' }}
-              >
-                <Icon size={32} style={{ color: i % 2 === 0 ? '#1C2D64' : '#FFFFFF' }} />
-              </div>
-              <h3 className="text-xl font-semibold mt-4 mb-4">
-                {t(item.title)}
-              </h3>
-
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.p
-                    key={`cont-${item.id}`}
-                    variants={contentVariants}
-                    initial="collapsed"
-                    animate="open"
-                    exit="collapsed"
-                    transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
-                    className="mb-4 overflow-hidden"
-                    style={{ color: i % 2 === 0 ? '#FFFFFF' : '#1C2D64' }}
-                  >
-                    {t(item.content)}
-                  </motion.p>
-                )}
-              </AnimatePresence>
-
-              <button
-                onClick={() => toggle(i)}
-                className={`w-10 h-10 rounded-full flex items-center justify-center transition`}
-                style={{
-                  color: isOpen
-                    ? (i % 2 === 0 ? '#1C2D64' : '#FFFFFF')
-                    : (i % 2 === 0 ? '#FFFFFF' : '#1C2D64'),
-                  backgroundColor: isOpen
-                    ? (i % 2 === 0 ? '#4CAF50' : '#1C2D64') // Adjusted for better contrast when open
-                    : 'transparent',
-                  border: `2px solid ${i % 2 === 0 ? '#1C2D64' : '#4CAF50'}` // Added border for clarity
+                    ? (i % 2 === 0 ? '#1C3B6F' : '#333333')
+                    : (i % 2 === 0 ? '#FFFFFF' : '#333333'),
+                  backgroundColor: isOpen ? '#FFFFFF' : 'transparent',
+                  border: i % 2 === 0 ? '2px solid #FFFFFF' : 'none'
                 }}
               >
                 {isOpen ? <HiMinus size={20} /> : <HiPlus size={20} />}
@@ -185,3 +105,4 @@ const Advantages = () => {
 };
 
 export default Advantages;
+  

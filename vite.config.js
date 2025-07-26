@@ -28,7 +28,7 @@ checkViteConfig();
 
 export default defineConfig({
   plugins: [react()],
-  base: '/',
+  base: '/Complex-Solution/',
   build: {
     outDir: 'dist',
   },

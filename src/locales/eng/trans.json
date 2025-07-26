@@ -22,7 +22,7 @@
   "servicefive": "Full-cycle development and implementation of IT projects",
   "all": "All",
   "life": "Telecommunications",
-  "statistic":"Complex Solution — your trusted partner for result-driven solutions.We value long-term and effective cooperation with our clients.For every project, we guarantee high-quality and practical solutions that meet modern standards and real business needs.",
+  "statistic": "Complex Solution — your trusted partner for result-driven solutions.We value long-term and effective cooperation with our clients.For every project, we guarantee high-quality and practical solutions that meet modern standards and real business needs.",
   "nature": "Agriculture",
   "stories": "Finance",
   "travel": "Data Center",
@@ -114,6 +114,37 @@
       "✓ User-friendly admin interface"
     ]
   },
+  "footer": {
+    "about_us": "About Us",
+    "about_us_text": "COMPLEX SOLUTIONS LLC is a full-cycle IT service provider focused on delivering innovative, scalable, and secure digital solutions for businesses.",
+    "services": "Services",
+    "services_list": {
+      "web": "Web Development",
+      "app": "Mobile App Development",
+      "uiux": "UI/UX Design",
+      "hubspot": "CRM Integration",
+      "email": "Email Marketing Automation",
+      "migration": "Platform Migration"
+    },
+    "career": "Career Opportunities",
+    "career_roles": {
+      "react": {
+        "title": "React Developer",
+        "exp": "1-5 Years Experience"
+      },
+      "wordpress": {
+        "title": "WordPress Developer",
+        "exp": "1-5 Years Experience"
+      },
+      "python": {
+        "title": "Python Developer",
+        "exp": "1-5 Years Experience"
+      }
+    },
+    "subscribe": "Join Our Network",
+    "subscribe_text": "Stay updated with the latest technology insights, trends, and company news. Join our newsletter for exclusive content.",
+    "admin_button": "Admin Portal"
+  },
   "welcome": "Welcome!",
   "phoneLabel": "Phone Number",
   "phonePlaceholder": "+998",
@@ -170,5 +201,6 @@
   "fullcycle_4_title": "Monitoring and Analysis",
   "fullcycle_4_desc": "We continuously monitor the system to detect and fix issues early, ensuring product stability and uninterrupted service.",
   "fullcycle_5_title": "User Training and Consultation",
-  "fullcycle_5_desc": "We provide users with clear instructions and practical support for using, configuring, and troubleshooting the software."
+  "fullcycle_5_desc": "We provide users with clear instructions and practical support for using, configuring, and troubleshooting the software.",
+  "contact_button": "Contact"
 }
